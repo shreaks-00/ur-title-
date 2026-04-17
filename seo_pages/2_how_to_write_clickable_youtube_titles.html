@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Write Clickable Youtube Titles | YouTube Masterclass</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../tool.html" class="back-link">&larr; Back to Tool</a>
+        
+        <h1>How to Write Clickable YouTube Titles (The Psychology of 10M+ Clicks)</h1>
+
+        <p>If you've been on YouTube for more than five minutes, you know the drill. You spend weeks on a video, only for it to be ignored because your title was "5 Tips for Cooking." Meanwhile, someone else posts a similar video with a title that makes you *have* to click, and they get millions of views.</p>
+        
+        <p>The difference isn't the camera quality or the lighting. The difference is the packaging. Writing a title is not about describing your video; it's about hacking the human brain's curiosity center.</p>
+
+        <!-- Inline CTA 1 -->
+        <div class="cta-inline">
+            <h3>Most people write titles like this.</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 24px;">Test your title against our viral engine and see if it's actually clickable.</p>
+            <input id="inlineInput1" placeholder="Paste your title here...">
+            <br>
+            <button onclick="redirectWithTitle('inlineInput1')">Test My Title Now</button>
+        </div>
+
+        <p>In this guide, we'll dive deep into the specific psychological triggers that the top 0.1% of creators use. If you've ever wondered <a href="1_why_my_youtube_videos_get_no_views.html" style="color: var(--accent);">why my youtube videos get no views</a>, the answer usually starts with a weak hook.</p>
+
+        <div class="highlight-box">
+             A title is a promise. If the promise is boring, nobody cares about the payoff.
+        </div>
+
+        <h2>Step 1: The Curiosity Gap</h2>
+        <p>The curiosity gap is the space between what a viewer knows and what they want to know. If your title says "I bought an expensive car," the gap is closed. But if it says "The massive mistake I made buying my first car," the gap is wide open. They have to click to see the mistake.</p>
+        
+        <div class="highlight-box">
+             Use "Power Words" like: Regret, Secret, Warning, Mistake, Finally, or Unexpected.
+        </div>
+
+        <h2>Step 2: Negative vs. Positive Triggers</h2>
+        <p>Humans are biologically wired to avoid pain more than we are to seek gain. This is why "5 things you are doing wrong" usually performs better than "5 things you should do." We are terrified of missing out or being the person making a mistake. This is a core part of <a href="3_why_my_youtube_ctr_is_low.html" style="color: var(--accent);">improving your YouTube CTR</a>.</p>
+
+        <div class="cta-inline">
+            <h3>Test yours before you post.</h3>
+            <p style="font-size: 0.9rem;">Stop guessing if your title will work. Let the AI analyze the psychological weight of your hook.</p>
+            <input id="inlineInput2" placeholder="Your YouTube title here...">
+            <br>
+            <button onclick="redirectWithTitle('inlineInput2')">Analyze For Impact</button>
+        </div>
+
+        <h2>Step 3: Extreme Specificity</h2>
+        <p>Vague titles die. Instead of "I built a house," use "I built a house in 24 hours with $500." The specificity makes the claim feel more real and more impressive. If you are struggling with <a href="5_why_no_one_clicks_my_videos.html" style="color: var(--accent);">low engagement</a>, specificity is your best friend.</p>
+
+        <div class="highlight-box">
+            The shorter the title, the harder it hits. Aim for under 50 characters to avoid being cut off on mobile.
+        </div>
+
+        <div class="cta-hero" style="margin-top: 80px;">
+            <h2>Fix your title before your next upload flops</h2>
+            <p>See why nobody clicks your video and get a viral-ready alternative in seconds.</p>
+            <div style="margin-top: 32px;">
+                <input id="finalInput" type="text" placeholder="Paste your title here...">
+                <br>
+                <button onclick="redirectWithTitle('finalInput')">Fix My Title Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function redirectWithTitle(inputId) {
+      const input = document.getElementById(inputId).value;
+      if (!input) return;
+      window.location.href = "../tool.html?title=" + encodeURIComponent(input);
+    }
+    </script>
+</body>
+</html>

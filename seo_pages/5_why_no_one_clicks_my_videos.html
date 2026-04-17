@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why No One Clicks My Videos | Final Reality Check</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../tool.html" class="back-link">&larr; Back to Tool</a>
+        
+        <h1>Why No One Clicks My Videos (The Truth You're Ignoring)</h1>
+
+        <p>It's the most painful feeling in the world. You pour your soul into a video, and the world responds with silence. You refresh the page, hoping for a miracle, but the view count doesn't move. You start to think it's you. You start to think you aren't made for this.</p>
+        
+        <p>But here's the reality: It's almost never the content. It's the packaging. If you can't get them to open the door, they'll never see the beautiful house you built inside. If you want a real answer to <a href="1_why_my_youtube_videos_get_no_views.html" style="color: var(--accent);">why my youtube videos get no views</a>, look at your titles.</p>
+
+        <!-- Inline CTA 1 -->
+        <div class="cta-inline">
+            <h3>The brutal truth is one click away.</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 24px;">Paste your title below and see why people are scrolling past it without a second thought.</p>
+            <input id="inlineInput1" placeholder="Paste your title idea...">
+            <br>
+            <button onclick="redirectWithTitle('inlineInput1')">Analyze My Title</button>
+        </div>
+
+        <div class="highlight-box">
+             Brutal Truth: If your video is dying at zero views, you didn't fail at editing. You failed at attention.
+        </div>
+
+        <h2>Section 1: The Psychology of the Scroll</h2>
+        <p>People aren't "judging" your video. They are scanning for a reason to stop. If your title is boring, they choose survival over curiosity and keep scrolling. You have to force them to stop. Learn <a href="2_how_to_write_clickable_youtube_titles.html" style="color: var(--accent);">how to write clickable titles</a> by mastering the art of the pattern interrupt.</p>
+        
+        <div class="highlight-box">
+             Is your niche dead? No. Is your packaging boring? Probably.
+        </div>
+
+        <h2>Section 2: The Curiosity Gap</h2>
+        <p>Every great title creates a gap in the viewer's mind that can only be filled by clicking. If you don't create that itch, you won't get the click. This is the foundation of <a href="3_why_my_youtube_ctr_is_low.html" style="color: var(--accent);">improving your YouTube CTR</a>. Stop guessing and <a href="4_how_to_test_youtube_titles_before_posting.html" style="color: var(--accent);">start testing</a> your packaging.</p>
+
+        <div class="cta-inline">
+            <h3>Fix your packaging now.</h3>
+            <p style="font-size: 0.9rem;">Stop wasting your talent on videos nobody will ever see. Let's find your viral title.</p>
+            <input id="inlineInput2" placeholder="Your YouTube title here...">
+            <br>
+            <button onclick="redirectWithTitle('inlineInput2')">Fix My CTR Now</button>
+        </div>
+
+        <div class="highlight-box">
+            The algorithm only cares about clicks. If you can't get them, you aren't in the game.
+        </div>
+
+        <div class="cta-hero" style="margin-top: 80px;">
+            <h2>See why nobody clicks your video</h2>
+            <p>Fix your title before your next upload flops. Use elite psychology to guarantee your growth.</p>
+            <div style="margin-top: 32px;">
+                <input id="finalInput" type="text" placeholder="Paste your title here...">
+                <br>
+                <button onclick="redirectWithTitle('finalInput')">Fix My Title Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function redirectWithTitle(inputId) {
+      const input = document.getElementById(inputId).value;
+      if (!input) return;
+      window.location.href = "../tool.html?title=" + encodeURIComponent(input);
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boost Pro | Elite Content Strategist</title>
+    <meta name="description" content="Maximize your CTR and engagement with AI-powered viral content strategies.">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: transparent;
+        }
+
+        .logo-text,
+        .hero-title,
+        .score-num,
+        .primary-btn {
+            font-family: 'Orbitron', monospace;
+        }
+    </style>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <canvas id="canvas"
+        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none;"></canvas>
+
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="index.html" class="logo">
+                <i data-lucide="sparkles" class="accent-icon"></i>
+                <span class="logo-text">UR TITLE</span>
+            </a>
+            <div class="tool-selector">
+                <button class="tool-btn active" data-tool="youtube">YouTube</button>
+                <button class="tool-btn" data-tool="instagram">Instagram</button>
+                <button class="tool-btn" data-tool="hook">Hook</button>
+                <button class="tool-btn" data-tool="tiktok">TikTok</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Input Section -->
+        <section class="input-zone">
+            <textarea id="promptInput" placeholder="Paste an idea. Get something people actually click."></textarea>
+            <div class="input-footer">
+                <div class="history-label">
+                    <i data-lucide="history"></i>
+                    <span>HISTORY DISABLED</span>
+                </div>
+                <button id="generateBtn" class="primary-btn">
+                    <span class="btn-text">Generate</span>
+                    <i data-lucide="arrow-right"></i>
+                    <i data-lucide="loader-2" class="spinner hidden"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="status-zone hidden">
+            <div class="spinner-large"></div>
+            <p class="status-text">ANALYZING PSYCHOLOGY</p>
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="status-zone faded">
+            <i data-lucide="sparkles" class="large-icon"></i>
+            <p class="status-text">AWAITING CONTENT PROTOCOL...</p>
+        </div>
+
+        <!-- Results Section -->
+        <section id="resultsArea" class="results-area hidden">
+            <!-- Ultimate Pick Card -->
+            <div id="heroCard" class="card hero-card">
+                <div class="card-glow"></div>
+                <div class="card-header">
+                    <div class="badge">
+                        <i data-lucide="flame" class="pulse"></i>
+                        ULTIMATE PICK
+                    </div>
+                    <div class="score-display">
+                        <div id="scoreValue" class="score-num">Strong</div>
+                        <div id="scoreLabel" class="score-meta">Viral Potential</div>
+                    </div>
+                </div>
+                <h2 id="bestResultText" class="hero-title"></h2>
+                <p id="critiqueText" class="hero-critique"></p>
+                <div class="card-actions">
+                    <button class="action-btn copy-btn" data-copy="hero">
+                        <i data-lucide="copy"></i>
+                        <span>Copy Output</span>
+                    </button>
+                    <button class="action-btn boost-btn" id="boostHeroBtn">
+                        <i data-lucide="trending-up"></i>
+                        <span>Boost</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Variations Section -->
+            <div class="variations-section">
+                <h3 class="section-label">ALTERNATIVE BLUEPRINTS</h3>
+                <div id="variationsGrid" class="variations-grid">
+                    <!-- JS will inject variation cards here -->
+                </div>
+            </div>
+
+            <div class="footer-action">
+                <button id="refreshBtn" class="link-btn">
+                    <span>Try another variation</span>
+                    <i data-lucide="arrow-right"></i>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Canvas Background Script
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Configuration - Adjusted for smaller, more controlled shapes
+        const gap = 52;
+        const radiusVmin = 30;
+        const speedIn = 0.4;
+        const speedOut = 0.6;
+        const restScale = 0.07;
+        const minHoverScale = 1.0;
+        const maxHoverScale = 2.2;
+        const waveSpeed = 1200;
+        const waveWidth = 180;
+
+        const PALETTE = [
+            { type: 'solid', value: '#22c55e' },
+            { type: 'solid', value: '#06b6d4' },
+            { type: 'solid', value: '#f97316' },
+            { type: 'solid', value: '#ef4444' },
+            { type: 'solid', value: '#facc15' },
+            { type: 'solid', value: '#ec4899' },
+            { type: 'gradient', stops: ['#6366f1', '#3b82f6'] },
+            { type: 'gradient', stops: ['#22c55e', '#06b6d4'] },
+            { type: 'gradient', stops: ['#8b5cf6', '#ec4899'] },
+            { type: 'gradient', stops: ['#f97316', '#facc15'] }
+        ];
+
+        const SHAPE_TYPES = ['circle', 'pill', 'star', 'hexagon', 'diamond', 'squiggle', 'skull'];
+
+        let grid = null;
+        let pointer = null;
+        let activity = 0;
+        let waves = [];
+
+        const rnd = (min, max) => Math.random() * (max - min) + min;
+        const rndInt = (min, max) => Math.floor(rnd(min, max + 1));
+        const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+        const smoothstep = (t) => (t = Math.max(0, Math.min(1, t)), t * t * (3 - 2 * t));
+        const durationToFactor = (s) => s <= 0 ? 1 : 1 - Math.pow(0.05, 1 / (60 * s));
+
+        // Drawing Primitives
+        function drawCircle(ctx, s) {
+            ctx.beginPath();
+            ctx.arc(0, 0, s, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function drawPill(ctx, s) {
+            const w = s * 0.45;
+            ctx.beginPath();
+            ctx.roundRect(-w, -s, w * 2, s * 2, w);
+            ctx.fill();
+        }
+
+        function drawHexagon(ctx, s) {
+            ctx.beginPath();
+            for (let i = 0; i < 6; i++) {
+                const a = (i * Math.PI) / 3;
+                ctx.lineTo(Math.cos(a) * s, Math.sin(a) * s);
+            }
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function drawDiamond(ctx, s) {
+            ctx.beginPath();
+            ctx.moveTo(0, -s * 1.1);
+            ctx.lineTo(s * 0.9, 0);
+            ctx.lineTo(0, s * 1.1);
+            ctx.lineTo(-s * 0.9, 0);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function drawStar(ctx, s, p, ir) {
+            ctx.beginPath();
+            for (let i = 0; i < p * 2; i++) {
+                const a = (i * Math.PI) / p - Math.PI / 2;
+                const r = i % 2 === 0 ? s : s * ir;
+                ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r);
+            }
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function drawSquiggle(ctx, s) {
+            ctx.beginPath();
+            ctx.lineWidth = 3.5;
+            ctx.lineCap = 'round';
+            for (let i = -s; i <= s; i += 2) {
+                const y = Math.sin(i * 0.25) * (s * 0.4);
+                if (i === -s) ctx.moveTo(i, y);
+                else ctx.lineTo(i, y);
+            }
+            ctx.stroke();
+        }
+
+        function drawSkull(ctx, s) {
+            ctx.font = `${s * 1.7}px serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('💀', 0, 2);
+        }
+
+        function drawShape(ctx, shape) {
+            const s = shape.size;
+            switch (shape.type) {
+                case 'circle': drawCircle(ctx, s * 0.7); break;
+                case 'pill': drawPill(ctx, s * 0.8); break;
+                case 'hexagon': drawHexagon(ctx, s * 0.8); break;
+                case 'diamond': drawDiamond(ctx, s * 0.8); break;
+                case 'star': drawStar(ctx, s * 0.8, shape.points, shape.innerRatio); break;
+                case 'squiggle': drawSquiggle(ctx, s * 0.9); break;
+                case 'skull': drawSkull(ctx, s * 0.8); break;
+            }
+        }
+
+        function resolveFill(ctx, colorDef, size) {
+            if (colorDef.type === 'solid') return colorDef.value;
+            const grad = ctx.createLinearGradient(-size, -size, size, size);
+            grad.addColorStop(0, colorDef.stops[0]);
+            grad.addColorStop(1, colorDef.stops[1]);
+            return grad;
+        }
+
+        function buildGrid() {
+            const W = window.innerWidth;
+            const H = window.innerHeight;
+            const cols = Math.floor(W / gap);
+            const rows = Math.floor(H / gap);
+            const offsetX = (W - (cols - 1) * gap) / 2;
+            const offsetY = (H - (rows - 1) * gap) / 2;
+            const shapes = [];
+
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    const type = pick(SHAPE_TYPES);
+                    const shape = {
+                        x: offsetX + col * gap,
+                        y: offsetY + row * gap,
+                        type: type,
+                        color: pick(PALETTE),
+                        angle: rnd(0, Math.PI * 2),
+                        size: gap * 0.42,
+                        scale: restScale,
+                        maxScale: rnd(minHoverScale, maxHoverScale),
+                        points: rndInt(5, 8),
+                        innerRatio: rnd(0.35, 0.45)
+                    };
+                    shapes.push(shape);
+                }
+            }
+            return { shapes, width: W, height: H };
+        }
+
+        function init() {
+            const W = window.innerWidth;
+            const H = window.innerHeight;
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = W * dpr;
+            canvas.height = H * dpr;
+            ctx.scale(dpr, dpr);
+            grid = buildGrid();
+        }
+
+        function tick() {
+            if (!grid) return requestAnimationFrame(tick);
+
+            const { shapes, width, height } = grid;
+            const radius = Math.min(width, height) * (radiusVmin / 100);
+            const now = performance.now();
+
+            ctx.fillStyle = '#050505'; // Matched the background color of your site
+            ctx.fillRect(0, 0, width, height);
+
+            activity *= 0.95;
+
+            const maxDist = Math.sqrt(width * width + height * height);
+            waves = waves.filter(w => (now - w.startTime) / 1000 * waveSpeed < maxDist + waveWidth);
+
+            for (let i = 0; i < shapes.length; i++) {
+                const shape = shapes[i];
+
+                let pointerInfluence = 0;
+                if (pointer && activity > 0.01) {
+                    const dx = shape.x - pointer.x;
+                    const dy = shape.y - pointer.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    pointerInfluence = smoothstep(1 - dist / radius) * activity;
+                }
+
+                let waveInfluence = 0;
+                for (let j = 0; j < waves.length; j++) {
+                    const wave = waves[j];
+                    const waveRadius = (now - wave.startTime) / 1000 * waveSpeed;
+                    const wdx = shape.x - wave.x;
+                    const wdy = shape.y - wave.y;
+                    const wdist = Math.sqrt(wdx * wdx + wdy * wdy);
+                    const t = 1 - Math.abs(wdist - waveRadius) / waveWidth;
+                    if (t > 0) waveInfluence = Math.max(waveInfluence, Math.sin(Math.PI * t));
+                }
+
+                const target = Math.max(
+                    restScale + pointerInfluence * (shape.maxScale - restScale),
+                    restScale + waveInfluence * (shape.maxScale - restScale)
+                );
+
+                const factor = target > shape.scale ? durationToFactor(speedIn) : durationToFactor(speedOut);
+                shape.scale += (target - shape.scale) * factor;
+
+                if (shape.scale < 0.01) continue;
+
+                ctx.save();
+                ctx.translate(shape.x, shape.y);
+
+                const rotationFactor = shape.type === 'skull' ? 0.15 : 0.8;
+                ctx.rotate(shape.angle + (waveInfluence * Math.PI * rotationFactor));
+
+                ctx.scale(shape.scale, shape.scale);
+
+                const fill = resolveFill(ctx, shape.color, shape.size);
+                ctx.fillStyle = fill;
+                ctx.strokeStyle = fill;
+                drawShape(ctx, shape);
+
+                ctx.restore();
+            }
+
+            requestAnimationFrame(tick);
+        }
+
+        window.addEventListener('resize', init);
+        window.addEventListener('pointermove', e => {
+            pointer = { x: e.clientX, y: e.clientY };
+            activity = 1;
+        });
+        window.addEventListener('click', e => {
+            waves.push({ x: e.clientX, y: e.clientY, startTime: performance.now() });
+        });
+
+        init();
+        tick();
+
+        setTimeout(() => {
+            waves.push({ x: window.innerWidth / 2, y: window.innerHeight / 2, startTime: performance.now() });
+        }, 500);
+
+    </script>
+</body>
+
+</html>

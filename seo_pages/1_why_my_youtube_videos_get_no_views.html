@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why My Youtube Videos Get No Views | YouTube Growth Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Global Navigation -->
+    <nav class="global-nav">
+        <a href="../tool.html" class="nav-logo">Boost Pro</a>
+        <a href="../tool.html" class="nav-cta">Test Your Title</a>
+    </nav>
+
+    <div class="container">
+        <a href="../tool.html" class="back-link">&larr; Back to Tool</a>
+        
+        <h1>Why My YouTube Videos Get No Views (And Exactly How to Fix It Today)</h1>
+
+        <p>You just sat there and completely drained yourself for this. You spent ten, maybe fifteen hours scripting, filming, and meticulously editing a single video. You matched the sound effects perfectly to the jump cuts. You color-graded the footage so it looked cinematic. You were absolutely certain that this was going to be the video that finally blew up your channel.</p>
+        
+        <p>You hit publish. You share it immediately. You open the YouTube Studio app on your phone, dragging your thumb violently down to refresh the screen. Still 12 views. Probably 9 of those views are from you constantly checking the video on your laptop, your iPad, plus your mom watching it out of pity.</p>
+
+        <!-- Inline CTA 1 -->
+        <div class="cta-inline">
+            <h3 style="margin-bottom: 8px;">Your title might be the problem.</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 24px;">Paste it below and find out instantly why nobody is clicking.</p>
+            <input id="inlineInput1" placeholder="Paste your title here...">
+            <br>
+            <button onclick="redirectWithTitle('inlineInput1')">Analyze My Title</button>
+        </div>
+
+        <p>It is completely crushing. You sit there, staring at that flat gray line in your analytics, questioning absolutely everything you are doing. If you are paralyzed right now by the question of "why my youtube videos get no views," take a deep breath. You are not alone.</p>
+        
+        <p>But more importantly: it is almost certainly not because your actual video content is bad. The most painful, harsh reality of YouTube is this: The greatest, entertaining video does not matter if no one ever clicks to watch it. For deeper insights, see <a href="5_why_no_one_clicks_my_videos.html" style="color: var(--accent);">why no one clicks my videos</a>.</p>
+
+        <div class="highlight-box">
+            If nobody clicks, your video is dead. The algorithm ignores ART. It only rewards ATTENTION.
+        </div>
+
+        <h2>Why This Happens: The Brutal Truth About the Algorithm</h2>
+        <p>YouTube is not a meritocracy. YouTube is a ruthless recommendation engine. Its goal—its entire business model—is to keep eyes on the screen to show ads. To achieve that, it tests your video with a small group. If they ignore it while scrolling, YouTube interprets that as "boring" and pulls the plug.</p>
+        
+        <p>There are two non-negotiable metrics: <a href="3_why_my_youtube_ctr_is_low.html" style="color: var(--accent);">Impressions and CTR</a>. If your CTR is under 4%, it's a catastrophic failure in the eyes of the AI.</p>
+
+        <div class="highlight-box">
+             Most creators write titles as "descriptions" of what's in the video. The top 1% write titles as "triggers" for what's in the human brain.
+        </div>
+
+        <h2>The Invisible Mistakes Purposely Destroying Your Channel</h2>
+        <p>Most beginners pouring 99% of their energy into the video, then slapping a title on in the final 30 seconds. This is why you fail. You might be being generic instead of curious. Or your titles are too long for mobile. If you want to know <a href="2_how_to_write_clickable_youtube_titles.html" style="color: var(--accent);">how to write clickable titles</a>, you need to master the curiosity gap.</p>
+
+        <div class="cta-inline">
+            <h3>Stop posting into the void.</h3>
+            <p style="font-size: 0.9rem;">The biggest creators 10x their views by fixing their packaging first.</p>
+            <input id="inlineInput2" placeholder="Test your title strategy...">
+            <br>
+            <button onclick="redirectWithTitle('inlineInput2')">Fix My CTR Now</button>
+        </div>
+
+        <h2>How to Fix It Today: The "Packaging First" Rule</h2>
+        <p>If you want to permanently stop asking "why my youtube videos get no views," change your workflow. Do not make a video until you have a clickable title. We call this "packaging first." If you can't brainstorm a title that makes someone feel a "mental itch," the idea is fundamentally weak. Learn <a href="4_how_to_test_youtube_titles_before_posting.html" style="color: var(--accent);">how to test your titles</a> before you ever open your camera.</p>
+
+        <div class="highlight-box">
+            Brutally honest truth: You are one "clickable" title away from your first 100k views.
+        </div>
+
+        <div class="cta-hero" style="margin-top: 80px;">
+            <h2>See why nobody clicks your video</h2>
+            <p>Fix your title before your next upload flops. Use elite psychology to guarantee your growth.</p>
+            <div style="margin-top: 32px;">
+                <input id="finalInput" type="text" placeholder="Your YouTube title goes here...">
+                <br>
+                <button onclick="redirectWithTitle('finalInput')">Fix My Title Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function redirectWithTitle(inputId) {
+      const input = document.getElementById(inputId).value;
+      if (!input) return;
+      window.location.href = "../tool.html?title=" + encodeURIComponent(input);
+    }
+    </script>
+</body>
+</html>

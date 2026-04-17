@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creator Hub | Boost Pro SEO</title>
+    <meta name="description" content="Master the art of clickable packaging. Stop guessing and start growing with elite creator insights.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Global Navigation -->
+    <nav class="global-nav">
+        <a href="../tool.html" class="nav-logo">Boost Pro</a>
+        <a href="../tool.html" class="nav-cta">Test Your Title</a>
+    </nav>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <header class="cta-hero">
+            <h1>Your videos don’t flop. <br/>Your titles do.</h1>
+            <p>Test your title against elite human psychology before you post.</p>
+            <div style="margin-top: 32px;">
+                <input id="hubInput" type="text" placeholder="Paste your title here...">
+                <br>
+                <button onclick="redirectWithTitle('hubInput')">Analyze My Title</button>
+            </div>
+        </header>
+
+        <section>
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2 style="margin-top: 0; font-size: 1rem; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase;">The Creator Playbook</h2>
+                <p style="color: var(--text-primary); font-weight: 700;">Learn why your content isn’t getting the clicks it deserves.</p>
+            </div>
+            
+            <div class="pages-grid">
+                <a href="1_why_my_youtube_videos_get_no_views.html" class="page-card">
+                    <h2>Ghosted by the Algorithm?</h2>
+                    <p>It's not shadowbanning. It's your CTR. Learn the brutal truth about why nobody is clicking your masterpieces.</p>
+                </a>
+                <a href="2_how_to_write_clickable_youtube_titles.html" class="page-card">
+                    <h2>The Clickable Title Formula</h2>
+                    <p>Stop writing descriptions. Start writing triggers. The exact psychology behind 10M+ view headlines.</p>
+                </a>
+                <a href="3_why_my_youtube_ctr_is_low.html" class="page-card">
+                    <h2>Why Your CTR is Low</h2>
+                    <p>Identify the invisible mistakes killing your reach. From red dots to text overload—fix your packaging now.</p>
+                </a>
+                <a href="4_how_to_test_youtube_titles_before_posting.html" class="page-card">
+                    <h2>Stop Guessing, Start Testing</h2>
+                    <p>The secret workflow of the top 1% of creators. How to guarantee views before you even hit publish.</p>
+                </a>
+                <a href="5_why_no_one_clicks_my_videos.html" class="page-card">
+                    <h2>Why No One Clicks</h2>
+                    <p>Is your niche dead or is your packaging boring? A deep dive into the curiosity gap that drives millions of clicks.</p>
+                </a>
+            </div>
+        </section>
+
+        <footer class="divider">
+            <div style="text-align: center; opacity: 0.4; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;">
+                &copy; 2024 Boost Pro AI Hub
+            </div>
+        </footer>
+    </div>
+
+    <script>
+    function redirectWithTitle(inputId) {
+      const input = document.getElementById(inputId).value;
+      if (!input) return;
+      // Redirect to the tool (assuming it's in the parent directory)
+      window.location.href = "../tool.html?title=" + encodeURIComponent(input);
+    }
+    </script>
+</body>
+</html>

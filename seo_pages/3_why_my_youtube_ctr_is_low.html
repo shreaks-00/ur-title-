@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why My Youtube Ctr Is Low | YouTube Analytics Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../tool.html" class="back-link">&larr; Back to Tool</a>
+        
+        <h1>Why My YouTube CTR is Low (And How to Fix Your Packaging)</h1>
+
+        <p>You open the analytics tab, and there it is: a beautiful video idea, decent watch time, but a CTR that looks like a flatline. Maybe it's 1.5%. Maybe it's 2%. Either way, it's killing your reach.</p>
+        
+        <p>Your click-through rate (CTR) is the most honest feedback you'll ever get from your audience. If it's low, it means they saw your video and actively decided it wasn't worth their time. Understanding <a href="1_why_my_youtube_videos_get_no_views.html" style="color: var(--accent);">why my youtube videos get no views</a> starts with this one metric.</p>
+
+        <!-- Inline CTA 1 -->
+        <div class="cta-inline">
+            <h3>Is your title scaring away viewers?</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 24px;">Paste your title below and see if it's optimized for clicks or just taking up space.</p>
+            <input id="inlineInput1" placeholder="Paste your title here...">
+            <br>
+            <button onclick="redirectWithTitle('inlineInput1')">Analyze My CTR</button>
+        </div>
+
+        <div class="highlight-box">
+             CTR isn't a "number." It's a measure of how well you understand your audience's psychology.
+        </div>
+
+        <h2>Good CTR vs. Bad CTR Examples</h2>
+        
+        <div class="highlight-box">
+             Bad CTR: "How to edit videos faster (Tutorial)" <br/>
+             Why: Generic, instructional, zero curiosity.
+        </div>
+
+        <div class="highlight-box" style="background: rgba(16, 185, 129, 0.05); border-left-color: var(--success); color: var(--success);">
+             Good CTR: "The editing secret that saved me 40 hours a week" <br/>
+             Why: High value + Curiosity + Personal result.
+        </div>
+
+        <p>The difference between these two is massive. The second title triggers a physiological need to know the "secret." If you want to learn <a href="2_how_to_write_clickable_youtube_titles.html" style="color: var(--accent);">how to write clickable titles</a>, you have to stop thinking like a teacher and start thinking like a storyteller.</p>
+
+        <div class="cta-inline">
+            <h3>Boost your CTR instantly.</h3>
+            <p style="font-size: 0.9rem;">Stop cross-fingering and start testing. Our tool predicts CTR based on viral patterns.</p>
+            <input id="inlineInput2" placeholder="Your YouTube title...">
+            <br>
+            <button onclick="redirectWithTitle('inlineInput2')">Fix My CTR Now</button>
+        </div>
+
+        <h2>Invisible CTR Killers</h2>
+        <p>Sometimes the problem isn't the idea; it's the execution. Is your text too small on mobile? Is your title cut off after 40 characters? Is your <a href="4_how_to_test_youtube_titles_before_posting.html" style="color: var(--accent);">packaging testing strategy</a> non-existent? These are the silent killers of channel growth.</p>
+
+        <div class="highlight-box">
+            If your CTR is low, the algorithm thinks your video is a bad fit for the platform. It's that simple. 
+        </div>
+
+        <div class="cta-hero" style="margin-top: 80px;">
+            <h2>Stop guessing. Fix your CTR.</h2>
+            <p>See why nobody clicks your video and get a viral-ready alternative in seconds.</p>
+            <div style="margin-top: 32px;">
+                <input id="finalInput" type="text" placeholder="Paste your title here...">
+                <br>
+                <button onclick="redirectWithTitle('finalInput')">Analyze My CTR Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function redirectWithTitle(inputId) {
+      const input = document.getElementById(inputId).value;
+      if (!input) return;
+      window.location.href = "../tool.html?title=" + encodeURIComponent(input);
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Test Youtube Titles Before Posting | Creator Success</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../tool.html" class="back-link">&larr; Back to Tool</a>
+        
+        <h1>How to Test YouTube Titles Before Posting (The Secret of the 1%)</h1>
+
+        <p>The biggest creators on the platform have a secret: they never "guess" what will go viral. They test it. While you are crossing your fingers and hoping for views, they are using data to guarantee success before they even hit publish.</p>
+
+        <!-- Immediate CTA for High Intent Page -->
+        <div class="cta-inline">
+            <h3>Stop Guessing. Start Testing.</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 24px;">Paste your title idea below and see if it's statistically likely to go viral.</p>
+            <input id="inlineInput1" placeholder="Your YouTube title idea...">
+            <br>
+            <button onclick="redirectWithTitle('inlineInput1')">Test My Title Now</button>
+        </div>
+
+        <p>Testing your <a href="2_how_to_write_clickable_youtube_titles.html" style="color: var(--accent);">clickable titles</a> before they go live is the single most important thing you can do for your channel's growth. If you don't have a system, you are essentially gambling with your time. This is the definitive answer to <a href="1_why_my_youtube_videos_get_no_views.html" style="color: var(--accent);">why my youtube videos get no views</a>.</p>
+
+        <div class="highlight-box">
+             Prediction is better than reaction. Once a video flops, it's 10x harder to revive it.
+        </div>
+
+        <h2>Section 1: The Workflow of Champions</h2>
+        <p>Most creators treat the title as an afterthought. Professionals treat it as the product. They spend hours brainstorming dozens of variations, testing each one against human psychological triggers. They understand that a <a href="3_why_my_youtube_ctr_is_low.html" style="color: var(--accent);">low CTR</a> is a death sentence for a video.</p>
+        
+        <div class="highlight-box">
+             Goal: 3-5 distinct angles for every video. Fear, Curiosity, Result, and Contrarian.
+        </div>
+
+        <div class="cta-inline">
+            <h3>Boost your CTR before you publish.</h3>
+            <p style="font-size: 0.9rem;">Analyze your hooks against elite creator patterns and find the winner.</p>
+            <input id="inlineInput2" placeholder="Paste your title here...">
+            <br>
+            <button onclick="redirectWithTitle('inlineInput2')">Run AI Test</button>
+        </div>
+
+        <h2>Section 2: Stop Guessing. Start Testing.</h2>
+        <p>You don't need a massive budget to test your titles. You need a tool that understands curiosity gaps and emotional resonance. If you've been wondering <a href="5_why_no_one_clicks_my_videos.html" style="color: var(--accent);">why no one clicks my videos</a>, it's because you are relying on luck. Stop it.</p>
+
+        <div class="highlight-box">
+            Pro tip: Finalize your "packaging" (Title + Thumbnail) *before* you even start scripting the video.
+        </div>
+
+        <div class="cta-hero" style="margin-top: 80px;">
+            <h2>The ultimate test for your titles</h2>
+            <p>See why nobody clicks your video and get a viral-ready alternative in seconds.</p>
+            <div style="margin-top: 32px;">
+                <input id="finalInput" type="text" placeholder="Paste your title here...">
+                <br>
+                <button onclick="redirectWithTitle('finalInput')">Fix My Title Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function redirectWithTitle(inputId) {
+      const input = document.getElementById(inputId).value;
+      if (!input) return;
+      window.location.href = "../tool.html?title=" + encodeURIComponent(input);
+    }
+    </script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 // --- CONFIGURATION ---
-const API_KEY = "YOUR_GROQ_API_KEY_HERE"; // WARNING: Do not commit your actual API key
+// API key is handled server-side via /api/generate (Vercel serverless function)
 const MODEL_NAME = "llama-3.3-70b-versatile";
 
 const PROMPTS_CONFIG = {
@@ -148,11 +148,10 @@ async function handleGenerate(overrideInput = null, modifier = "") {
     setLoading(true);
 
     try {
-        const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+        const response = await fetch("/api/generate", {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${API_KEY}`
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 messages: [

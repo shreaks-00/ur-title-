@@ -57,35 +57,76 @@ document.addEventListener('DOMContentLoaded', () => {
         Array.from(el.childNodes).forEach(wrapWords);
     });
 
-    // --- Original Demo Logic ---
+    // --- 4. Functional Demo Logic ---
     const analyzeBtn = document.getElementById('demo-analyze-btn');
     const demoInput = document.getElementById('demo-input');
     const demoStateWaiting = document.getElementById('demo-state-waiting');
     const demoStateLoading = document.getElementById('demo-state-loading');
     const demoStateResult = document.getElementById('demo-state-result');
     const demoOriginalTitle = document.getElementById('demo-original-title');
+    const demoAITitle = document.getElementById('demo-state-result')?.querySelector('.font-outfit.font-black');
+    const demoAIScore = document.getElementById('demo-state-result')?.querySelector('.text-red-400, .text-indigo-400');
 
     if (analyzeBtn && demoInput) {
-        analyzeBtn.addEventListener('click', () => {
+        analyzeBtn.addEventListener('click', async () => {
             const val = demoInput.value.trim();
             if (!val) {
                 demoInput.focus();
                 return;
             }
 
-            // Hide waiting, show loading
+            // UI State Transformation
             demoStateWaiting.classList.add('hidden');
             demoStateResult.classList.add('hidden');
             demoStateLoading.classList.remove('hidden');
+            analyzeBtn.disabled = true;
+            analyzeBtn.textContent = "Analyzing...";
 
-            // Set original text
-            demoOriginalTitle.textContent = val;
+            try {
+                // Real AI Call via secure proxy
+                const response = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        messages: [
+                            { 
+                                role: "system", 
+                                content: "You are an elite viral YouTube strategist. Rewrite the provided title for maximum CTR. Keep it human and high-curiosity. Output JSON: { \"score\": 0-10, \"best_result\": \"String\" }" 
+                            },
+                            { role: "user", content: `Rewrite this title: "${val}"` }
+                        ],
+                        model: "llama-3.3-70b-versatile",
+                        response_format: { type: "json_object" }
+                    })
+                });
 
-            // Simulate AI processing
-            setTimeout(() => {
+                if (!response.ok) throw new Error('API Error');
+
+                const data = await response.json();
+                const output = JSON.parse(data.choices?.[0]?.message?.content || "{}");
+
+                // Update UI with real data
+                if (demoOriginalTitle) demoOriginalTitle.textContent = val;
+                if (demoAITitle) demoAITitle.textContent = output.best_result || "Viral Title Generated";
+                
+                if (demoAIScore) {
+                    const score = output.score || 9;
+                    demoAIScore.textContent = `Score: ${score}/10`;
+                    demoAIScore.classList.toggle('text-red-400', score < 6);
+                    demoAIScore.classList.toggle('text-indigo-400', score >= 6);
+                }
+
                 demoStateLoading.classList.add('hidden');
                 demoStateResult.classList.remove('hidden');
-            }, 1500);
+            } catch (err) {
+                console.error("Demo failed:", err);
+                demoStateLoading.classList.add('hidden');
+                demoStateWaiting.classList.remove('hidden');
+                alert("The AI is currently busy. Please try again or head to the main tool page!");
+            } finally {
+                analyzeBtn.disabled = false;
+                analyzeBtn.textContent = "Analyze Title";
+            }
         });
     }
 

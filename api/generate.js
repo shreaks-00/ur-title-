@@ -1,16 +1,20 @@
 export default async function handler(req, res) {
-    // Only allow POST requests
+    // 1. Only allow POST requests
     if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Method not allowed' });
+        res.setHeader('Allow', ['POST']);
+        return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
     }
 
+    // 2. Get API Key from Environment Variables (Secrets)
     const API_KEY = process.env.GROQ_API_KEY;
 
     if (!API_KEY) {
-        return res.status(500).json({ error: 'API key not configured on server.' });
+        console.error("Missing GROQ_API_KEY environment variable");
+        return res.status(500).json({ error: 'Server configuration error: Key not found.' });
     }
 
     try {
+        // 3. Proxy the request to Groq server-side
         const groqResponse = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: 'POST',
             headers: {
@@ -23,12 +27,16 @@ export default async function handler(req, res) {
         const data = await groqResponse.json();
 
         if (!groqResponse.ok) {
-            return res.status(groqResponse.status).json(data);
+            return res.status(groqResponse.status).json({
+                error: "Groq API Error",
+                message: data.error?.message || "Failed to fetch from Groq"
+            });
         }
 
+        // 4. Return the successful response to the browser
         return res.status(200).json(data);
     } catch (err) {
-        console.error('Groq proxy error:', err);
-        return res.status(500).json({ error: 'Internal server error' });
+        console.error('Secure Proxy Error:', err);
+        return res.status(500).json({ error: 'Internal Server Error' });
     }
 }

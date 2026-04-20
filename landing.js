@@ -1,4 +1,41 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- 0. Two-Part Typing Animation ---
+    const part1 = document.getElementById('hero-part1');
+    const part2 = document.getElementById('hero-part2');
+    const cursor1 = document.getElementById('cursor-1');
+    const cursor2 = document.getElementById('cursor-2');
+    
+    if (part1 && part2) {
+        const text1 = "YouTube Title Generator";
+        const text2 = "That Actually Gets Clicks.";
+        let i = 0;
+        let j = 0;
+        
+        function typeWriter() {
+            if (i < text1.length) {
+                part1.textContent += text1.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            } else if (i === text1.length && j === 0) {
+                // Done with part 1, switch cursors and pause briefly
+                cursor1.classList.add('hidden');
+                cursor2.classList.remove('hidden');
+                j++;
+                setTimeout(typeWriter, 300);
+            } else if (j <= text2.length) {
+                part2.textContent += text2.charAt(j - 1);
+                j++;
+                setTimeout(typeWriter, 50);
+            } else {
+                // Blink final cursor
+                setInterval(() => {
+                    cursor2.style.borderColor = cursor2.style.borderColor === 'transparent' ? '#caff00' : 'transparent';
+                }, 500);
+            }
+        }
+        setTimeout(typeWriter, 300);
+    }
+
     // --- 1. Creative Coding: Scroll Reveal Intersection Observer ---
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {

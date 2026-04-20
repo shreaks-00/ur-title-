@@ -102,6 +102,148 @@ OUTPUT JSON ONLY:
 "insights": ["Short actionable tip"]
 }`,
         user: (input) => `Generate viral TikTok openings for: "${input}"\n\nInstructions: Create strong hooks + tension, keep it 1-2 lines, 5 completely different variations.`
+    },
+    shorts: {
+        system: `You are an elite viral content strategist specialized in YouTube Shorts.
+
+You do NOT generate generic content.
+You generate high-performing, scroll-stopping, retention-focused ideas.
+
+Your outputs must feel like they will outperform 90% of content on the platform.
+
+---
+
+# CORE OBJECTIVE:
+
+Maximize:
+
+* scroll stopping (first 1–2 seconds)
+* retention
+* curiosity
+* rewatch potential
+
+If the output feels safe, generic, or predictable → it is WRONG.
+
+---
+
+# STRICT RULES (NON-NEGOTIABLE):
+
+1. HOOK DOMINATES EVERYTHING
+
+* The hook must immediately interrupt scrolling
+* It must create tension, curiosity, or emotional reaction
+
+FORBIDDEN:
+
+* “In this video…”
+* “Here are 5 tips…”
+* “Today I will show…”
+
+REQUIRED:
+
+* bold statements
+* contradictions
+* uncomfortable truths
+* pattern interrupts
+
+---
+
+2. NO GENERIC TITLES
+
+Bad:
+“How to grow on YouTube”
+
+Good:
+“You’re Growing on YouTube Wrong (Here’s Why)”
+
+Every title must:
+
+* trigger curiosity
+* create tension
+* feel specific
+
+---
+
+3. FORCE VARIATION
+
+Each variation must use a DIFFERENT psychological trigger:
+
+* curiosity gap
+* fear / loss
+* mistake / failure
+* contrarian belief
+* relatable frustration
+
+If variations feel similar → regenerate mentally.
+
+---
+
+4. HASHTAGS MUST BE STRATEGIC
+
+* 5–8 only
+* mix:
+
+  * broad (#shorts, #youtube)
+  * niche (#youtubegrowth, #contentstrategy)
+  * intent (#viralcontent, #growonyoutube)
+
+NO spam.
+NO irrelevant tags.
+
+---
+
+5. HUMAN TONE ONLY
+
+* direct
+* slightly aggressive
+* confident
+* no “AI voice”
+
+---
+
+6. INSIGHT MUST BE REAL
+
+Explain WHY the content works using:
+
+* curiosity gap
+* emotional trigger
+* viewer psychology
+
+Keep it short but sharp.
+
+---
+
+# QUALITY FILTER (MANDATORY):
+
+Before outputting, mentally check:
+
+* Would this stop YOU from scrolling?
+* Does it feel different from typical content?
+* Is there tension or curiosity?
+
+If not → improve it.
+
+---
+
+# OUTPUT FORMAT (JSON ONLY):
+
+{
+"hook": "Scroll-stopping opening line",
+"best_title": "High-performing optimized title",
+"variations": [
+{ "text": "Variation 1", "angle": "curiosity" },
+{ "text": "Variation 2", "angle": "fear" },
+{ "text": "Variation 3", "angle": "mistake" },
+{ "text": "Variation 4", "angle": "contrarian" },
+{ "text": "Variation 5", "angle": "relatable" }
+],
+"hashtags": ["#tag1", "#tag2", "#tag3", "#tag4", "#tag5"],
+"insight": "Short explanation of why this will perform better"
+}
+
+NO markdown.
+NO explanation outside JSON.`,
+        user: (input) => `Optimize this YouTube Shorts idea: "${input}"\n\nYou must:\n* make it more clickable\n* make it more engaging\n* increase retention potential\n\nRequirements:\n* Generate a strong hook (first 1–2 seconds)\n* Create a high-performing title\n* Generate 5 variations using different psychological triggers\n* Add strategic hashtags\n* Explain briefly why it works\n\nAvoid anything generic.\nMake it feel like viral content.`
     }
 };
 
@@ -203,27 +345,60 @@ function displayResults(data) {
     resultsArea.classList.remove('hidden');
     resultsArea.classList.add('animate-in');
 
-    // Hero Section
-    bestResultText.textContent = data.best_result;
-    const critique = data.critique?.[0];
-    critiqueText.textContent = critique ? `"${critique.title}: ${critique.description}"` : "";
-    scoreValue.textContent = `${data.score?.value || 0}/10`;
-    
+    // Select UI elements
+    const hookContainer = document.getElementById('hookContainer');
+    const hookText = document.getElementById('hookText');
+    const hashtagsSection = document.getElementById('hashtagsSection');
+    const hashtagsGrid = document.getElementById('hashtagsGrid');
     const scoreLabel = document.getElementById('scoreLabel');
-    scoreLabel.textContent = data.score?.label || "Potential";
-    
-    // Show reason if available
-    if (data.score?.reason) {
-        scoreLabel.textContent += ` • ${data.score.reason}`;
+
+    // Handle standard vs shorts format
+    const isShorts = activeTool === 'shorts';
+
+    // Hero Section
+    if (isShorts) {
+        // Shorts Specific
+        bestResultText.textContent = data.best_title || "";
+        critiqueText.textContent = data.insight ? `Viral Logic: ${data.insight}` : "";
+        
+        hookContainer.classList.remove('hidden');
+        hookText.textContent = data.hook || "";
+        
+        hashtagsSection.classList.remove('hidden');
+        hashtagsGrid.innerHTML = '';
+        data.hashtags?.forEach(tag => {
+            const chip = document.createElement('span');
+            chip.className = 'hashtag-chip';
+            chip.textContent = tag;
+            hashtagsGrid.appendChild(chip);
+        });
+
+        scoreValue.textContent = "Elite";
+        scoreLabel.textContent = "Viral Blueprint Loaded";
+    } else {
+        // Standard Format
+        bestResultText.textContent = data.best_result || "";
+        const critique = data.critique?.[0];
+        critiqueText.textContent = critique ? `"${critique.title}: ${critique.description}"` : "";
+        scoreValue.textContent = `${data.score?.value || 0}/10`;
+        scoreLabel.textContent = data.score?.label || "Potential";
+        
+        if (data.score?.reason) {
+            scoreLabel.textContent += ` • ${data.score.reason}`;
+        }
+        
+        hookContainer.classList.add('hidden');
+        hashtagsSection.classList.add('hidden');
     }
 
     // Variations
     variationsGrid.innerHTML = '';
     data.variations?.forEach((v, index) => {
+        const strategy = v.strategy || v.angle || "Variation";
         const card = document.createElement('div');
         card.className = 'var-card';
         card.innerHTML = `
-            <div class="strategy-badge">${v.strategy}</div>
+            <div class="strategy-badge">${strategy}</div>
             <p class="var-text">"${v.text}"</p>
             <div class="var-actions">
                 <button class="var-btn copy-var" data-text="${v.text.replace(/"/g, '&quot;')}">
@@ -290,7 +465,10 @@ document.addEventListener('DOMContentLoaded', () => {
 refreshBtn.addEventListener('click', () => handleGenerate(null, "Give me a fresh batch of variations."));
 
 boostHeroBtn.addEventListener('click', () => {
-    if (currentResult) handleGenerate(currentResult.best_result, "Increase viral intensity.");
+    if (currentResult) {
+        const textToBoost = activeTool === 'shorts' ? currentResult.best_title : currentResult.best_result;
+        handleGenerate(textToBoost, "Increase viral intensity.");
+    }
 });
 
 // Event Delegation for dynamic cards
@@ -310,8 +488,20 @@ variationsGrid.addEventListener('click', (e) => {
 });
 
 document.querySelector('.copy-btn[data-copy="hero"]').addEventListener('click', (e) => {
-    if (currentResult) copyToClipboard(currentResult.best_result, e.currentTarget);
+    if (currentResult) {
+        const textToCopy = activeTool === 'shorts' ? currentResult.best_title : currentResult.best_result;
+        copyToClipboard(textToCopy, e.currentTarget);
+    }
 });
+
+const copyHashtagsBtn = document.getElementById('copyHashtagsBtn');
+if (copyHashtagsBtn) {
+    copyHashtagsBtn.addEventListener('click', (e) => {
+        if (currentResult && currentResult.hashtags) {
+            copyToClipboard(currentResult.hashtags.join(' '), e.currentTarget);
+        }
+    });
+}
 
 // Allow Cmd/Ctrl + Enter to generate
 promptInput.addEventListener('keydown', (e) => {

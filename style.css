@@ -349,6 +349,69 @@ textarea::placeholder {
     margin-bottom: 32px;
 }
 
+/* Shorts Specific UI */
+.hook-container {
+    background: rgba(202, 255, 0, 0.05);
+    border: 1px solid rgba(202, 255, 0, 0.1);
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+}
+
+.hook-label {
+    font-size: 9px;
+    font-weight: 900;
+    color: #caff00;
+    letter-spacing: 0.2em;
+    margin-bottom: 8px;
+}
+
+.hook-text {
+    font-size: 15px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.4;
+}
+
+.hashtags-section {
+    margin-top: 32px;
+    background: rgba(15, 15, 20, 0.4);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 24px;
+}
+
+.hashtags-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.hashtag-chip {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    padding: 6px 14px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.hashtag-chip:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.copy-hashtags-btn {
+    width: 100%;
+    justify-content: center;
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
 .card-actions {
     display: flex;
     flex-wrap: wrap;

@@ -42,6 +42,7 @@
             </a>
             <div class="tool-selector">
                 <button class="tool-btn active" data-tool="youtube">YouTube</button>
+                <button class="tool-btn" data-tool="shorts">Shorts</button>
                 <button class="tool-btn" data-tool="instagram">Instagram</button>
                 <button class="tool-btn" data-tool="hook">Hook</button>
                 <button class="tool-btn" data-tool="tiktok">TikTok</button>
@@ -93,18 +94,34 @@
                         <div id="scoreLabel" class="score-meta">Viral Potential</div>
                     </div>
                 </div>
+                <div id="hookContainer" class="hook-container hidden">
+                    <div class="hook-label">VIRAL HOOK</div>
+                    <div id="hookText" class="hook-text"></div>
+                </div>
                 <h2 id="bestResultText" class="hero-title"></h2>
                 <p id="critiqueText" class="hero-critique"></p>
                 <div class="card-actions">
                     <button class="action-btn copy-btn" data-copy="hero">
                         <i data-lucide="copy"></i>
-                        <span>Copy Output</span>
+                        <span>Copy Title</span>
                     </button>
                     <button class="action-btn boost-btn" id="boostHeroBtn">
                         <i data-lucide="trending-up"></i>
                         <span>Boost</span>
                     </button>
                 </div>
+            </div>
+
+            <!-- Hashtags Section -->
+            <div id="hashtagsSection" class="hashtags-section hidden">
+                <h3 class="section-label">STRATEGIC HASHTAGS</h3>
+                <div id="hashtagsGrid" class="hashtags-grid">
+                    <!-- JS will inject hashtags here -->
+                </div>
+                <button class="action-btn copy-hashtags-btn" id="copyHashtagsBtn">
+                    <i data-lucide="copy"></i>
+                    <span>Copy All Tags</span>
+                </button>
             </div>
 
             <!-- Variations Section -->
